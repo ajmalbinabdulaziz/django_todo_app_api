@@ -1,2 +1,2 @@
-# django_todo_app_api
+# django rest framework
 ## adding api to an existing django ToDo App
