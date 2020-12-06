@@ -1,0 +1,21 @@
+{% extends "my_app/index.html" %}
+{% block body_block %}
+
+<title>Create Todo</title>
+<div class="container jumbotron">
+
+    <h2>{{ error }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Create</button>
+    </form>
+
+
+
+</div>
+
+
+
+{% endblock %}

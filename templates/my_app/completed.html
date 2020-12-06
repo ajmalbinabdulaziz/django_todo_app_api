@@ -1,0 +1,23 @@
+{% extends "my_app/index.html" %}
+{% block body_block %}
+
+<title>Completed Todos Page</title>
+
+      <div class="container jumbotron">
+
+      <h1>Hi {{ user.username }}. Your completed Todo lists are here..!</h1>
+      <ul>
+          {% for todo in todos %}
+          <li>
+            <a href="{% url 'viewtodo' todo.id %}">
+            {% if todo.important %}<b>{% endif %}{{ todo.title }}{% if todo.important %}</b>{% endif %}
+            {% if todo.memo %} - {{ todo.memo }}{% endif %}
+            {{ todo.datecompleted }}
+            </a>
+          </li>          
+          {% endfor %}
+      </ul>
+
+      </div>
+
+{% endblock %}

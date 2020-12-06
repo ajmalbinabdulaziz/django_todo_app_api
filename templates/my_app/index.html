@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'index' %}">ToDo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
+
+            {% if user.is_authenticated %}  ...........................................................................
+
+            <span class="navbar-text">
+              Logged in as {{ user.username }}
+            </span>........
+            <li><a class="nav-link" href="{% url 'my_app:createtodo' %}">Create Todo</a></li>
+            <li><a class="nav-link" href="{% url 'my_app:completed' %}">Completed Todos</a></li>
+
+            <form action="{% url 'my_app:logoutuser' %}" method="POST">
+              {% csrf_token %}
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>
+            </form>
+ 
+
+            {% else %}
+
+            <li><a class="nav-link" href="{% url 'my_app:signup' %}">Sign Up</a></li>
+            <li><a class="nav-link" href="{% url 'my_app:login_page' %}">Login</a></li>
+
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div>
+        
+    <div>
+      {% block body_block %}
+    <title>Home Page</title>
+
+      <div class="container jumbotron">
+
+      {% if user.is_authenticated %}
+
+      <h1>Hi {{ user.username }}. Your Todo lists are here..!</h1>
+      <ul>
+          {% for todo in todos %}
+          <li>
+            <a href="{% url 'viewtodo' todo.id %}">
+            {% if todo.important %}<b>{% endif %}{{ todo.title }}{% if todo.important %}</b>{% endif %}
+            {% if todo.memo %} - {{ todo.memo }}{% endif %}
+            </a>
+          </li>          
+          {% endfor %}
+      </ul>
+      {% else %}
+
+      <h1>{{ error }}</h1>
+
+      {% endif %} 
+
+      </div>
+
+      {% endblock %}
+    </div>
+    
+  </body>
+</html>

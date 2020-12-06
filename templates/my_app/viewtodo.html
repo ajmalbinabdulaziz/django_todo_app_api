@@ -1,0 +1,33 @@
+{% extends "my_app/index.html" %}
+{% block body_block %}
+
+{{ error }}
+
+<title>SignUp Page</title>
+<div class="container jumbotron">
+    <h2>{{ todas.title }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Update</button>       
+    </form>
+    <br>
+
+    <form action="{% url 'completetodo' todas.id %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Complete</button>
+    </form>
+    <br>
+
+    <form action="{% url 'deletetodo' todas.id %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Delete</button>
+    </form>
+
+
+
+</div>
+
+
+{% endblock %}
